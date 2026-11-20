@@ -3,6 +3,7 @@ package fr.diginamic.hello.controleurs;
 import fr.diginamic.hello.entites.Ville;
 import fr.diginamic.hello.exceptions.ExceptionFonctionnelle;
 import fr.diginamic.hello.services.VilleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,13 +34,13 @@ public class VilleControleur {
     }
 
     @PostMapping
-    public ResponseEntity<String> ajouterVille(@RequestBody Ville nouvelleVille) throws ExceptionFonctionnelle {
+    public ResponseEntity<String> ajouterVille(@Valid @RequestBody Ville nouvelleVille) throws ExceptionFonctionnelle {
         villeService.insererVille(nouvelleVille);
         return ResponseEntity.ok("Ville insérée avec succès");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> modifierVille(@PathVariable int id, @RequestBody Ville donnees) throws ExceptionFonctionnelle {
+    public ResponseEntity<String> modifierVille(@PathVariable int id, @Valid @RequestBody Ville donnees) throws ExceptionFonctionnelle {
         villeService.modifierVille(id, donnees);
         return ResponseEntity.ok("Ville modifiée avec succès");
     }
